@@ -39,21 +39,17 @@ class TimerState extends State<CountUpTimerPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Timer'),
-      ),
       body: Scrollbar(
         child: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.symmetric(
-              vertical: 32,
+              vertical: 0,
               horizontal: 16,
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-
                 StreamBuilder<int>(
                   stream: _stopWatchTimerDown.rawTime,
                   initialData: _stopWatchTimerDown.rawTime.value,
@@ -75,7 +71,7 @@ class TimerState extends State<CountUpTimerPage> {
                           ),
                         ),
                       ],
-                    ) : const SizedBox(height: 160,);
+                    ) : const SizedBox(height: 170,);
                   },
                 ),
 
@@ -215,28 +211,20 @@ class TimerState extends State<CountUpTimerPage> {
                         ),
                       ),
                     ),
-                  ],
-                ),
-                Padding(
-                  padding: const EdgeInsets.all( 16),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Flexible(
-                        child: Padding(
-                          padding: const EdgeInsets.all(0).copyWith(right: 8),
-                          child: RoundedButton(
-                            color: Colors.deepPurpleAccent,
-                            onTap: _stopWatchTimer.onAddLap,
-                            child: const Text(
-                              'Lap',
-                              style: TextStyle(color: Colors.white, fontSize: 30),
-                            ),
+                    Flexible(
+                      child: Padding(
+                        padding: const EdgeInsets.all(0).copyWith(right: 8),
+                        child: RoundedButton(
+                          color: Colors.deepPurpleAccent,
+                          onTap: _stopWatchTimer.onAddLap,
+                          child: const Text(
+                            'Lap',
+                            style: TextStyle(color: Colors.white, fontSize: 30),
                           ),
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ],
             ),
