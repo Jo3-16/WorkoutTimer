@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:wakelock/wakelock.dart';
 
 import 'countup.dart';
-void main() => runApp(const MyApp());
+void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  Wakelock.enable();
+  runApp(const MyApp());
+}
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:stop_watch_timer/stop_watch_timer.dart';
-import 'package:timer/rounded_button.dart';
+import 'package:timer/buttons.dart';
 
 class CountUpTimerPage extends StatefulWidget {
   const CountUpTimerPage({super.key});
@@ -59,16 +59,13 @@ class TimerState extends State<CountUpTimerPage> {
                     StopWatchTimer.getDisplayTime(value, hours: false, minute: false, milliSecond: false);
                     return value != 0 ? Column(
                       children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.all(8),
-                          child: Text(
-                            displayTime,
-                            style: const TextStyle(
-                                fontSize: 120,
-                                fontFamily: 'Helvetica',
-                                color: Colors.green,
-                                fontWeight: FontWeight.bold),
-                          ),
+                        Text(
+                          displayTime,
+                          style: const TextStyle(
+                              fontSize: 120,
+                              fontFamily: 'Helvetica',
+                              color: Colors.green,
+                              fontWeight: FontWeight.bold),
                         ),
                       ],
                     ) : const SizedBox(height: 170,);
@@ -85,15 +82,12 @@ class TimerState extends State<CountUpTimerPage> {
                     StopWatchTimer.getDisplayTime(value, hours: false, milliSecond: false);
                     return Column(
                       children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.all(8),
-                          child: Text(
-                            displayTime,
-                            style: const TextStyle(
-                                fontSize: 120,
-                                fontFamily: 'Helvetica',
-                                fontWeight: FontWeight.bold),
-                          ),
+                        Text(
+                          displayTime,
+                          style: const TextStyle(
+                              fontSize: 120,
+                              fontFamily: 'Helvetica',
+                              fontWeight: FontWeight.bold),
                         ),
                       ],
                     );
@@ -157,44 +151,56 @@ class TimerState extends State<CountUpTimerPage> {
                       Flexible(
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 4),
-                          child: RoundedButton(
-                            color: Colors.lightBlue,
-                            backgroundColor: Colors.green,
+                          child: RoundedIconButton(
+                            backgroundColor: Colors.transparent,
                             onTap: () {
                               _stopWatchTimer.onResetTimer();
                               _stopWatchTimerDown.onResetTimer();
                               _stopWatchTimerDown.onStartTimer();
                             },
-                            child: const Text(
-                              'Start',
-                              style: TextStyle(color: Colors.white, fontSize: 30),
-                            ),
+
+                            icon: const Icon(Icons.fast_forward, color:  Colors.green, size: 70,),
+                          ),
+                        ),
+                      ),
+                      Flexible(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 4),
+                          child: RoundedIconButton(
+                            backgroundColor: Colors.transparent,
+                            onTap: () {
+                              _stopWatchTimer.onResetTimer();
+                              _stopWatchTimerDown.onResetTimer();
+                              _stopWatchTimer.onStartTimer();
+                            },
+
+                            icon: const Icon(Icons.play_arrow, color: Colors.green, size: 70,),
+                          ),
+                        ),
+                      ),
+                      Flexible(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 4),
+                          child: RoundedIconButton(
+                            backgroundColor: Colors.transparent,
+                            onTap: () {
+                              _stopWatchTimer.onStopTimer();
+                              _stopWatchTimerDown.onStopTimer();
+                            },
+
+                            icon: const Icon(Icons.square, color: Colors.green, size: 70,),
                           ),
                         ),
                       ),
                     ],
                   ),
                 ),
+                const SizedBox(height: 12,),
                 /// Button
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Flexible(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 4),
-                        child: RoundedButton(
-                          color: Colors.green,
-                          onTap: () {
-                            _stopWatchTimer.onStopTimer();
-                            _stopWatchTimerDown.onStopTimer();
-                          },
-                          child: const Text(
-                            'Stop',
-                            style: TextStyle(color: Colors.white, fontSize: 30),
-                          ),
-                        ),
-                      ),
-                    ),
+
                     Flexible(
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 4),
@@ -204,10 +210,11 @@ class TimerState extends State<CountUpTimerPage> {
                             _stopWatchTimer.onResetTimer();
                             _stopWatchTimerDown.onResetTimer();
                           },
-                          child: const Text(
+                          label: const Text(
                             'Reset',
                             style: TextStyle(color: Colors.white,fontSize: 30),
                           ),
+                          icon: const Icon(Icons.refresh, color: Colors.white,),
                         ),
                       ),
                     ),
@@ -217,10 +224,11 @@ class TimerState extends State<CountUpTimerPage> {
                         child: RoundedButton(
                           color: Colors.deepPurpleAccent,
                           onTap: _stopWatchTimer.onAddLap,
-                          child: const Text(
+                          label: const Text(
                             'Lap',
                             style: TextStyle(color: Colors.white, fontSize: 30),
                           ),
+                          icon: const Icon(Icons.restart_alt, color: Colors.white,),
                         ),
                       ),
                     ),
