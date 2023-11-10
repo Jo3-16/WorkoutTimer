@@ -57,18 +57,19 @@ class TimerState extends State<CountUpTimerPage> {
                     final value = snap.data!;
                     final displayTime =
                     StopWatchTimer.getDisplayTime(value, hours: false, minute: false, milliSecond: false);
-                    return value != 0 ? Column(
+                    final showTimer = _stopWatchTimerDown.isRunning;
+                    return showTimer ? Column(
                       children: <Widget>[
                         Text(
                           displayTime,
                           style: const TextStyle(
-                              fontSize: 120,
+                              fontSize: 150,
                               fontFamily: 'Helvetica',
                               color: Colors.green,
                               fontWeight: FontWeight.bold),
                         ),
                       ],
-                    ) : const SizedBox(height: 170,);
+                    ) : const SizedBox(height: 0,);
                   },
                 ),
 
@@ -80,17 +81,18 @@ class TimerState extends State<CountUpTimerPage> {
                     final value = snap.data!;
                     final displayTime =
                     StopWatchTimer.getDisplayTime(value, hours: false, milliSecond: false);
-                    return Column(
+                    final showTimer = !_stopWatchTimerDown.isRunning;
+                    return showTimer ? Column(
                       children: <Widget>[
                         Text(
                           displayTime,
                           style: const TextStyle(
-                              fontSize: 120,
+                              fontSize: 150,
                               fontFamily: 'Helvetica',
                               fontWeight: FontWeight.bold),
                         ),
                       ],
-                    );
+                    ) : const SizedBox(height: 0,);
                   },
                 ),
 
@@ -98,7 +100,7 @@ class TimerState extends State<CountUpTimerPage> {
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8),
                   child: SizedBox(
-                    height: 100,
+                    height: 200,
                     child: StreamBuilder<List<StopWatchRecord>>(
                       stream: _stopWatchTimer.records,
                       initialData: _stopWatchTimer.records.value,
@@ -184,6 +186,11 @@ class TimerState extends State<CountUpTimerPage> {
                           child: RoundedIconButton(
                             backgroundColor: Colors.transparent,
                             onTap: () {
+
+                              if(!_stopWatchTimer.isRunning){
+                                _stopWatchTimer.onResetTimer();
+                              }
+
                               _stopWatchTimer.onStopTimer();
                               _stopWatchTimerDown.onStopTimer();
                             },
@@ -203,7 +210,7 @@ class TimerState extends State<CountUpTimerPage> {
 
                     Flexible(
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 4),
+                        padding: const EdgeInsets.symmetric(horizontal: 12),
                         child: RoundedButton(
                           color: Colors.red,
                           onTap: () {
@@ -212,7 +219,7 @@ class TimerState extends State<CountUpTimerPage> {
                           },
                           label: const Text(
                             'Reset',
-                            style: TextStyle(color: Colors.white,fontSize: 30),
+                            style: TextStyle(color: Colors.white,fontSize: 20),
                           ),
                           icon: const Icon(Icons.refresh, color: Colors.white,),
                         ),
@@ -220,13 +227,13 @@ class TimerState extends State<CountUpTimerPage> {
                     ),
                     Flexible(
                       child: Padding(
-                        padding: const EdgeInsets.all(0).copyWith(right: 8),
+                        padding: const EdgeInsets.symmetric(horizontal: 12),
                         child: RoundedButton(
                           color: Colors.deepPurpleAccent,
                           onTap: _stopWatchTimer.onAddLap,
                           label: const Text(
                             'Lap',
-                            style: TextStyle(color: Colors.white, fontSize: 30),
+                            style: TextStyle(color: Colors.white, fontSize: 20),
                           ),
                           icon: const Icon(Icons.restart_alt, color: Colors.white,),
                         ),
